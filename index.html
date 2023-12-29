@@ -674,20 +674,115 @@ blockquote {
 }
 	
 </style></head><body><article id="c68681ec-3dcc-4775-97b7-c335988f76b9" class="page sans"><header><h1 class="page-title">Fitness Tracking Application Database </h1><p class="page-description"></p></header><div class="page-body"><p id="2dc2230f-85e0-4771-8488-efbedfffb63e" class="">Aswinkumar TS</p><h2 id="b6ce9a46-3354-432c-95ce-bcb231f87657" class="">Domain Overview</h2><p id="feb94648-1995-4bac-8a1b-ef59741511b9" class="">The Fitness Tracking Application domain is highly relevant in today&#x27;s health-conscious society. This application allows users to monitor and improve their health and fitness levels by tracking physical activities, nutrition, sleep patterns, and overall well-being.</p><h2 id="b7aa8522-fcbb-4366-bb01-224c4ed8d81e" class="">Key Features</h2><ol type="1" id="ae33e056-7ba9-476c-a2a4-0fae3b4b1428" class="numbered-list" start="1"><li><strong>User Profiles:</strong><ul id="655b19f5-d6a2-45cc-ad1d-39aebc702fd6" class="bulleted-list"><li style="list-style-type:disc">Users can create and manage profiles with personal information, including age, weight, height, and fitness goals.</li></ul></li></ol><ol type="1" id="467e473e-57fb-4219-9b2f-5d4af5988815" class="numbered-list" start="2"><li><strong>Authentication and Security:</strong><ul id="c5e3b09c-7111-49b3-a5c4-225537193d82" class="bulleted-list"><li style="list-style-type:disc">The application ensures secure user authentication with password hashing and token-based access.</li></ul></li></ol><ol type="1" id="0ea27cc4-11f0-4abc-8bca-3786ba6af21c" class="numbered-list" start="3"><li><strong>Workouts and Categories:</strong><ul id="818462e4-5a86-4a05-9b9a-bf733010fb16" class="bulleted-list"><li style="list-style-type:disc">Users can log different types of workouts, categorized for better organization.</li></ul></li></ol><ol type="1" id="195eeb9b-3817-4b2a-80c9-3c9e0373e2d5" class="numbered-list" start="4"><li><strong>Sleep Logging:</strong><ul id="e960872b-effd-49a5-b8aa-c2dc88774805" class="bulleted-list"><li style="list-style-type:disc">Users can track sleep patterns, including duration and quality.</li></ul></li></ol><ol type="1" id="07a8710e-569b-44e8-8fba-1fd7542fd083" class="numbered-list" start="5"><li><strong>User Goals and Achievements:</strong><ul id="583c161d-015f-41ba-b17c-244232e79b16" class="bulleted-list"><li style="list-style-type:disc">Users can set fitness goals, and the application helps track progress.</li></ul></li></ol><h2 id="e3084630-62cf-496c-a842-2245d80df54e" class="">Database Schema</h2><p id="4014f097-30c0-46de-bf97-7feda26d6341" class="">
-</p><p id="2d0c4029-d4f0-40e3-a17e-4a20bf089e68" class="">CREATE TABLE user (</p><p id="3fdb65e9-be01-44f6-8232-b5eee6d18fc6" class="">id SERIAL PRIMARY KEY,</p><p id="a5918c75-dc3f-4f3d-933e-edb698e42216" class="">username VARCHAR(50) NOT NULL UNIQUE,</p><p id="feb00001-b42d-405e-8460-cd60d0a69ea7" class="">email VARCHAR(100) NOT NULL UNIQUE,</p><p id="1a02680a-060b-4164-8a04-e71b4d665be3" class="">created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP</p><p id="90d2b7d1-a0ca-4d2c-ba6e-b6541c7e1801" class="">);</p><p id="6632f88a-1ff5-4305-88ab-221c5dafbf97" class="">
-</p><p id="c65e05dd-3325-4e74-b7a9-6081f3fccfa1" class="">CREATE TABLE role (</p><p id="97ae0a26-7197-4e9e-9aba-da11b8e34675" class="">id SERIAL PRIMARY KEY,</p><p id="45145942-18c1-464b-9c04-30604fa43a41" class="">role_name VARCHAR(50) NOT NULL UNIQUE</p><p id="01736c99-f6e2-40bd-b2b3-54f90a750269" class="">);</p><p id="f5378981-b45d-466e-86e3-5c363ffa3d9b" class="">
-</p><p id="a8272a15-08da-432c-a206-1f1bd3127dfe" class="">CREATE TABLE user_role (</p><p id="eb0c1ebb-81e9-4571-8abf-64aa0956f599" class="">user_id INTEGER REFERENCES user(id),</p><p id="e497d7d4-b4b9-4e5b-a9e5-fcb0268e1c6f" class="">role_id INTEGER REFERENCES role(id),</p><p id="3863a294-a6aa-4dfa-aba3-41c9ed1cac6d" class="">PRIMARY KEY (user_id, role_id)</p><p id="a5f40566-c2c2-43e4-8c28-6425c099523e" class="">);</p><p id="b2c84b1f-6be5-46b4-9c7a-ed0d66725324" class="">
-</p><p id="675040d5-faad-47b1-a96c-e97195d8d6ee" class="">CREATE TABLE login_history (</p><p id="a19288cc-f83e-44c7-8add-76f117362915" class="">id SERIAL PRIMARY KEY,</p><p id="3a8d2620-1091-4e32-9559-c30d63aee839" class="">user_id INTEGER REFERENCES user(id),</p><p id="489b714d-aafe-4e24-8fe7-8e1d67d04a26" class="">login_time TIMESTAMP,</p><p id="7849f0bf-e8f3-4dee-974b-4654cb4b7ca7" class="">logout_time TIMESTAMP,</p><p id="22973742-65af-46fe-8288-2ffe94997440" class="">device_id VARCHAR(255)</p><p id="129e89e2-ad5b-4ff3-a7c3-669fe635b339" class="">);</p><p id="5be2373b-4cf6-40f6-96af-eb26541d7c8e" class="">
-</p><p id="755ecc57-a2f2-4903-903e-6c41f17195cd" class="">CREATE TABLE customer (</p><p id="a51d63d4-0804-4813-be36-79bcf387a980" class="">id SERIAL PRIMARY KEY,</p><p id="18554c10-5ad8-454e-a582-7ea65da27834" class="">location VARCHAR(50),</p><p id="20dc215b-a1e4-4112-9549-58d7897a0035" class="">age INT CHECK (age &gt;= 0),</p><p id="5035c87c-a674-4e29-9f9a-18651a28e457" class="">birthdate DATE,</p><p id="d048bf33-3c91-4d99-937f-5cf8bf6b4681" class="">weight DECIMAL(5,2) CHECK (weight &gt;= 0),</p><p id="57fb2975-23ba-47ad-a4d1-6772e021437a" class="">height DECIMAL(5,2) CHECK (height &gt;= 0)</p><p id="d24d3874-5156-4206-b4ed-a9fa5e30ded3" class="">);</p><p id="6c49164e-e7b9-4cc4-a0fe-27c0f499fafa" class="">
-</p><p id="a6301dc3-d09c-43a4-ba15-0cb831dd3386" class="">CREATE TABLE customer_user_mapping (</p><p id="64559ae9-47ae-46b3-83ca-a1259af94329" class="">customer_id INTEGER REFERENCES customer(id),</p><p id="6a27211c-2ce7-42d1-b256-05c48297a997" class="">user_id INTEGER REFERENCES user(id),</p><p id="f39c1c64-bbda-44d7-ba52-525ca95af3a3" class="">PRIMARY KEY (customer_id, user_id)</p><p id="2c36d2c6-1b32-4cc4-8608-0d1a3d184113" class="">);</p><p id="dd24c016-5833-4f9d-aa49-42d4fee3d7d8" class="">
-</p><p id="ea87d9a6-babe-429d-a3c7-dc27468a0941" class="">CREATE TABLE authentication_token (</p><p id="87d40057-8334-4eb1-9948-c2b1d788c073" class="">id SERIAL PRIMARY KEY,</p><p id="422d6a1c-bfcf-4236-8ef9-0a30fd4b0e6c" class="">user_id INTEGER REFERENCES user(id),</p><p id="f7d76590-a1cd-40c0-ad07-a076a88b5cd3" class="">token_hash VARCHAR(255) NOT NULL,</p><p id="80d89adc-2205-44a8-a418-86b962e5c562" class="">expiration_time TIMESTAMP NOT NULL</p><p id="994f4c8b-757a-4225-a053-e8fb04138bb4" class="">);</p><p id="c526f314-3a5f-4b37-ad57-9ef7408e91b7" class="">
-</p><p id="7f75c845-c3f5-46a7-bb23-7c33588435db" class="">CREATE TABLE password (</p><p id="8d792c94-ef32-4fbb-8168-29b0a3ea898e" class="">id SERIAL PRIMARY KEY,</p><p id="fb081854-1e5d-490b-bc17-52ed1e0748a6" class="">user_id INTEGER REFERENCES user(id),</p><p id="364e5a08-5720-4c47-b01d-34d85666f239" class="">password_hash VARCHAR(255) NOT NULL</p><p id="6825285c-cf89-4d79-af77-cf7a3a6edc7f" class="">);</p><p id="99c2d8aa-d3a4-4c19-887e-df78166d26c2" class="">
-</p><p id="f28b7b71-6c41-45ca-91a7-2cf59f99de8d" class="">CREATE TABLE workouts_category (</p><p id="dfaf3741-6a42-478a-8356-a3ed8f30b693" class="">id SERIAL PRIMARY KEY,</p><p id="43445cd9-5459-49ed-b47e-0bfcc2f13b34" class="">category_name VARCHAR(50) NOT NULL UNIQUE,</p><p id="f92f850b-b6dd-42a7-b1ee-1009013fb5a8" class="">image_url VARCHAR(255)</p><p id="7566f902-323b-4f6e-bf9d-315535d027d2" class="">);</p><p id="91c8ae36-045d-4825-9d3f-641035b122cd" class="">
-</p><p id="1cc4a50d-6ed2-40f1-89e8-adb494280f96" class="">CREATE TABLE workout (</p><p id="c04b35d4-0376-41f4-9e1c-a31c7c3a28c8" class="">id SERIAL PRIMARY KEY,</p><p id="a0f3e1ce-24ce-45cb-bff0-c5867f3411d9" class="">category_id INTEGER REFERENCES workouts_category(id),</p><p id="1088f2b1-f6dd-4457-b51f-f32b366f3d68" class="">description TEXT,</p><p id="6a428289-c056-4d6c-afbc-d0094b2723d9" class="">calories_consumed_per_minute DECIMAL(8,2) CHECK (calories_consumed_per_minute &gt;= 0)</p><p id="45c8b7a3-419d-4952-a0f1-0416fa5a1c6b" class="">);</p><p id="eaba4826-dedf-4d70-b405-4e1331640e53" class="">
-</p><p id="bd1c4663-8583-4b71-b371-d10f280f8cb7" class="">CREATE TABLE customer_activity (</p><p id="74ba70ae-6d53-4f9a-a977-bbe4d8c1a321" class="">id SERIAL PRIMARY KEY,</p><p id="385f97ac-7249-41a4-abe7-7843db8cbd33" class="">customer_id INTEGER REFERENCES customer(id),</p><p id="72ee8d47-caf1-49c2-8330-73673995a0cc" class="">workout_id INTEGER REFERENCES workout(id),</p><p id="cc3bd123-8138-488e-be2e-6f3a76e74e57" class="">workout_date TIMESTAMP,</p><p id="62748df5-2d46-45c8-810e-e53894bfdedc" class="">average_heart_rate INTEGER,</p><p id="5b681499-be90-494a-a5d1-396e074f3a5c" class="">distance DECIMAL(8,2),</p><p id="8b83decc-d149-4ac6-bc2c-66348f561fb1" class="">duration_minutes INTEGER CHECK (duration_minutes &gt;= 0)</p><p id="12e3fe82-9fb3-477d-a3f5-7105d9f32714" class="">);</p><p id="e8d35eb0-3914-4cf0-9a54-fd78b7c99992" class="">
-</p><p id="e08aedeb-759c-4440-b9f8-0dd00abda741" class="">CREATE TABLE sleep_log (</p><p id="5715b3ea-4e78-4598-bf46-7f6ae2c9d650" class="">id SERIAL PRIMARY KEY,</p><p id="b8d8678b-305c-4c61-8424-e55be8bd5635" class="">customer_id INTEGER REFERENCES customer(id),</p><p id="5996f3a2-d160-48ca-afd8-1060ba8c726f" class="">date DATE,</p><p id="b151666b-b5c4-473e-9ccf-0577694de823" class="">duration_hours DECIMAL(5,2) CHECK (duration_hours &gt;= 0),</p><p id="8f369a2f-5ae3-4271-9199-a71b81b4fd89" class="">quality_id INTEGER REFERENCES sleep_quality(id)</p><p id="b336f6f8-57c0-4151-ba36-eed0a4ee9279" class="">);</p><p id="aada8ffe-db42-4a3d-a53d-aa07816eee35" class="">
-</p><p id="1e716326-ef9e-471b-9057-e826e1627582" class="">CREATE TABLE sleep_quality (</p><p id="26622721-7e48-420e-9a95-48e5d08c576a" class="">id SERIAL PRIMARY KEY,</p><p id="0923de6e-7371-409e-8036-cba5ac0848bd" class="">quality_name VARCHAR(50) NOT NULL UNIQUE</p><p id="48f18bae-e2d6-4aff-b82c-21a80cd4091d" class="">);</p><p id="b60fdc07-acf7-45ec-a922-6dafed245d11" class="">
-</p><p id="5510eecd-859e-42c7-987c-e5afced354a0" class="">CREATE TABLE daily_goal (</p><p id="cc539257-7e6e-4111-99fc-d3c338be824d" class="">id SERIAL PRIMARY KEY,</p><p id="abde7d9e-08b7-4087-9cef-3ace42add61c" class="">steps_goal INT,</p><p id="049989dd-c418-4d41-b9e1-02f1d6d677ba" class="">calories_burned_goal INT</p><p id="b11b9649-1d02-48dd-b939-f5e83cc33cd9" class="">);</p><p id="0cf03303-eed8-4c14-ac15-2a3bdf60bcf3" class="">
-</p><p id="cbb6dae3-871a-4510-8b64-4a076e851af9" class="">CREATE TABLE user_daily_progress (</p><p id="049edfa7-75a5-4687-9c52-1087b88fac5c" class="">id SERIAL PRIMARY KEY,</p><p id="a5e86f49-6500-49a4-8db7-bc1bc3d41eeb" class="">customer_id INTEGER REFERENCES customer(id),</p><p id="9af9bc95-01d5-44f9-89f2-356201ed89fc" class="">date DATE,</p><p id="44953893-70e0-40b9-8c80-ecedb9e7254e" class="">steps_achieved INT,</p><p id="09479b59-096a-4f1c-bda0-579f1221afca" class="">calories_burned_achieved INT</p><p id="45072067-52b2-4c9a-b26d-89f62a989351" class="">);</p><p id="768d580b-61ce-434d-956c-3e862563b3e0" class="">
-</p><p id="70035a8f-4a59-4f21-a6cf-9d0115e6165e" class="">CREATE TABLE daily_goal_customer_progress (</p><p id="8db61e54-2c4c-43c4-bafb-760b00092f01" class="">id SERIAL PRIMARY KEY,</p><p id="8d1659b2-082b-4e53-a6ee-8f40621c006a" class="">goal_id INT REFERENCES daily_goal(id),</p><p id="8733c1f4-c3bc-4597-8410-0ea90fb1cfc0" class="">progress_id INT REFERENCES user_daily_progress(id)</p><p id="9a8581b2-c165-4cbd-9561-5b8b9192bc1f" class="">);</p><h2 id="720885d9-c568-4fca-a6b4-3aa9dd013712" class="">User Onboarding Journey</h2><h3 id="04053d04-c955-415f-bec0-f6a025788dc4" class="">1. User Login:</h3><ul id="69673326-a41d-4ae3-8abf-8ef13facc342" class="bulleted-list"><li style="list-style-type:disc">The user provides their email and password for login.</li></ul><h3 id="9fc3b1dc-ae05-4fa5-aff4-a0ac49273801" class="">2. Credential Verification:</h3><ul id="a1e8d717-db9f-4600-9848-86fbeefadb22" class="bulleted-list"><li style="list-style-type:disc">The system verifies the provided credentials.</li></ul><h3 id="a844eac3-40ea-4295-8d1a-ef9964a42f57" class="">3. Successful Login:</h3><ul id="343fbe1e-cdb2-4192-8c46-8f66b13454c0" class="bulleted-list"><li style="list-style-type:disc">If login is successful, the system identifies the user&#x27;s role (admin or customer).</li></ul><h3 id="26a5308e-4afd-477b-ba2d-6cbaeb6bbf95" class="">4. Customer Data Update:</h3><ul id="bca3e4cb-bc4a-456c-8944-847d9f5c3482" class="bulleted-list"><li style="list-style-type:disc">If the user is a customer, relevant data is added to the customers table.</li></ul><ul id="94077dee-9db5-4748-ab5c-e51cf71d0fb0" class="bulleted-list"><li style="list-style-type:disc">Data includes location, age, birthdate, weight, and height.</li></ul><h3 id="511bb268-065a-454c-8c81-52a94627948f" class="">5. Access to Personalized Dashboard:</h3><ul id="c49010c2-39ba-40c2-bee2-18442430d43b" class="bulleted-list"><li style="list-style-type:disc">The user gains access to a personalized dashboard.</li></ul><ul id="709b4c9e-0fce-4f6e-bd74-47fad3063476" class="bulleted-list"><li style="list-style-type:disc">Views fitness goals, achievements, and wellness tracking data.</li></ul><h3 id="fa618244-081d-4d2a-a3a1-d1709be575a8" class="">6. Admin Access:</h3><ul id="88655139-d32c-4955-8086-8a612cb42403" class="bulleted-list"><li style="list-style-type:disc">If the user is an admin, access to administrative features is granted.</li></ul><h3 id="e5b53b2a-f538-481d-8f81-acc9200a8469" class="">7. Setting Fitness Goals:</h3><ul id="189b496c-91a9-48b0-9b5f-4e821cba0bf1" class="bulleted-list"><li style="list-style-type:disc">Users select personalized daily goals from predefined options, and the app dynamically tracks their progress, providing insights and adaptive suggestions for continuous motivation and improvement.</li></ul><h3 id="c34d478b-9ad7-48aa-a574-662b45964c72" class="">8. Selecting Workouts:</h3><ul id="203ed8af-1c4c-41bf-90db-8b70e9a9530c" class="bulleted-list"><li style="list-style-type:disc">The user chooses workouts from predefined options stored in the workouts table.</li></ul><ul id="0f43f92b-857f-422f-9f32-9118ef37f265" class="bulleted-list"><li style="list-style-type:disc">Details of selected workouts are recorded in the user_workouts table, including metrics like duration and heart rate.</li></ul><h3 id="d4636d81-8001-4fb8-acb5-c129fd4df92f" class="">9. Quality Sleep Logging:</h3><ul id="72f5649c-c495-4807-91cd-6dafdd47dd3e" class="bulleted-list"><li style="list-style-type:disc">The user logs sleep patterns, with details stored in the sleep_log table.</li></ul><ul id="07f7bcc5-4a3c-4a8b-9ad9-ea810da908f8" class="bulleted-list"><li style="list-style-type:disc">Information includes sleep duration, date, and quality (Good, Average, or Poor).</li></ul><h2 id="1180f762-03d1-416e-9879-50c431c9f4b3" class="">Entity-Relationship (ER) Diagram</h2><p id="4b55a98d-5803-4420-ad07-3861ddedaf7a" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="52840ce3-9e53-4b0d-aa8e-b540a22ecb6a" class="code code-wrap"><code class="language-SQL">CREATE TABLE user (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE role (
+    id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE user_role (
+    user_id INTEGER REFERENCES user(id),
+    role_id INTEGER REFERENCES role(id),
+    PRIMARY KEY (user_id, role_id),
+    UNIQUE(user_id)
+);
+
+CREATE TABLE login_history (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES user(id),
+    login_time TIMESTAMP,
+    logout_time TIMESTAMP,
+    device_id VARCHAR(255)
+);
+
+CREATE TABLE customer (
+    id SERIAL PRIMARY KEY,
+    location VARCHAR(50),
+    age INT CHECK (age &gt;= 0),
+    birthdate DATE,
+    weight DECIMAL(5,2) CHECK (weight &gt;= 0),
+    height DECIMAL(5,2) CHECK (height &gt;= 0)
+);
+
+CREATE TABLE customer_user_mapping (
+    customer_id INTEGER REFERENCES customer(id),
+    user_id INTEGER REFERENCES user(id),
+    PRIMARY KEY (customer_id, user_id)
+);
+
+CREATE TABLE authentication_token (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES user(id),
+    token_hash VARCHAR(255) NOT NULL,
+    expiration_time TIMESTAMP NOT NULL
+);
+
+CREATE TABLE password (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES user(id),
+    password_hash VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE workouts_category (
+    id SERIAL PRIMARY KEY,
+    category_name VARCHAR(50) NOT NULL UNIQUE,
+    image_url VARCHAR(255)
+);
+
+CREATE TABLE workout (
+    id SERIAL PRIMARY KEY,
+    category_id INTEGER REFERENCES workouts_category(id),
+    description TEXT,
+    calories_consumed_per_minute DECIMAL(8,2) CHECK (calories_consumed_per_minute &gt;= 0)
+);
+
+CREATE TABLE customer_activity (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER REFERENCES customer(id),
+    workout_id INTEGER REFERENCES workout(id),
+    workout_date TIMESTAMP,
+    average_heart_rate INTEGER,
+    distance DECIMAL(8,2),
+    duration_minutes INTEGER CHECK (duration_minutes &gt;= 0)
+);
+
+CREATE TABLE sleep_log (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER REFERENCES customer(id),
+    date DATE,
+    duration_hours DECIMAL(5,2) CHECK (duration_hours &gt;= 0),
+    quality_id INTEGER REFERENCES sleep_quality(id)
+);
+
+CREATE TABLE sleep_quality (
+    id SERIAL PRIMARY KEY,
+    quality_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE daily_goal (
+    id SERIAL PRIMARY KEY,
+    steps_goal INT,
+    calories_burned_goal INT
+);
+
+CREATE TABLE user_daily_progress (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER REFERENCES customer(id),
+    date DATE,
+    steps_achieved INT,
+    calories_burned_achieved INT
+);
+
+CREATE TABLE daily_goal_customer_progress (
+    id SERIAL PRIMARY KEY,
+    goal_id INT REFERENCES daily_goal(id),
+    progress_id INT REFERENCES user_daily_progress(id),
+    UNIQUE(progress_id)
+);</code></pre><h2 id="720885d9-c568-4fca-a6b4-3aa9dd013712" class="">User Onboarding Journey</h2><h3 id="04053d04-c955-415f-bec0-f6a025788dc4" class="">1. User Login:</h3><ul id="69673326-a41d-4ae3-8abf-8ef13facc342" class="bulleted-list"><li style="list-style-type:disc">The user provides their email and password for login.</li></ul><h3 id="9fc3b1dc-ae05-4fa5-aff4-a0ac49273801" class="">2. Credential Verification:</h3><ul id="a1e8d717-db9f-4600-9848-86fbeefadb22" class="bulleted-list"><li style="list-style-type:disc">The system verifies the provided credentials.</li></ul><h3 id="a844eac3-40ea-4295-8d1a-ef9964a42f57" class="">3. Successful Login:</h3><ul id="343fbe1e-cdb2-4192-8c46-8f66b13454c0" class="bulleted-list"><li style="list-style-type:disc">If login is successful, the system identifies the user&#x27;s role (admin or customer).</li></ul><h3 id="26a5308e-4afd-477b-ba2d-6cbaeb6bbf95" class="">4. Customer Data Update:</h3><ul id="bca3e4cb-bc4a-456c-8944-847d9f5c3482" class="bulleted-list"><li style="list-style-type:disc">If the user is a customer, relevant data is added to the customers table.</li></ul><ul id="94077dee-9db5-4748-ab5c-e51cf71d0fb0" class="bulleted-list"><li style="list-style-type:disc">Data includes location, age, birthdate, weight, and height.</li></ul><h3 id="511bb268-065a-454c-8c81-52a94627948f" class="">5. Access to Personalized Dashboard:</h3><ul id="c49010c2-39ba-40c2-bee2-18442430d43b" class="bulleted-list"><li style="list-style-type:disc">The user gains access to a personalized dashboard.</li></ul><ul id="709b4c9e-0fce-4f6e-bd74-47fad3063476" class="bulleted-list"><li style="list-style-type:disc">Views fitness goals, achievements, and wellness tracking data.</li></ul><h3 id="fa618244-081d-4d2a-a3a1-d1709be575a8" class="">6. Admin Access:</h3><ul id="88655139-d32c-4955-8086-8a612cb42403" class="bulleted-list"><li style="list-style-type:disc">If the user is an admin, access to administrative features is granted.</li></ul><h3 id="e5b53b2a-f538-481d-8f81-acc9200a8469" class="">7. Setting Fitness Goals:</h3><ul id="189b496c-91a9-48b0-9b5f-4e821cba0bf1" class="bulleted-list"><li style="list-style-type:disc">Users select personalized daily goals from predefined options, and the app dynamically tracks their progress, providing insights and adaptive suggestions for continuous motivation and improvement.</li></ul><h3 id="c34d478b-9ad7-48aa-a574-662b45964c72" class="">8. Selecting Workouts:</h3><ul id="203ed8af-1c4c-41bf-90db-8b70e9a9530c" class="bulleted-list"><li style="list-style-type:disc">The user chooses workouts from predefined options stored in the workouts table.</li></ul><ul id="0f43f92b-857f-422f-9f32-9118ef37f265" class="bulleted-list"><li style="list-style-type:disc">Details of selected workouts are recorded in the user_workouts table, including metrics like duration and heart rate.</li></ul><h3 id="d4636d81-8001-4fb8-acb5-c129fd4df92f" class="">9. Quality Sleep Logging:</h3><ul id="72f5649c-c495-4807-91cd-6dafdd47dd3e" class="bulleted-list"><li style="list-style-type:disc">The user logs sleep patterns, with details stored in the sleep_log table.</li></ul><ul id="07f7bcc5-4a3c-4a8b-9ad9-ea810da908f8" class="bulleted-list"><li style="list-style-type:disc">Information includes sleep duration, date, and quality (Good, Average, or Poor).</li></ul><h2 id="1180f762-03d1-416e-9879-50c431c9f4b3" class="">Entity-Relationship (ER) Diagram</h2><p id="4b55a98d-5803-4420-ad07-3861ddedaf7a" class="">
 </p><figure id="40a16315-4c1f-444e-ac18-bc1ff712aca5" class="image"><a href="Fitness%20Tracking%20Application%20Database%20c68681ec3dcc477597b7c335988f76b9/er_diagram.svg"><img style="width:1371px" src="Fitness%20Tracking%20Application%20Database%20c68681ec3dcc477597b7c335988f76b9/er_diagram.svg"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
